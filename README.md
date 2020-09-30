@@ -11,27 +11,28 @@ jsdelivr为了防止滥用，并没有直接提供强制刷新缓存(purge cache
 
 ## 使用步骤
 1. 你可以clone本仓库本地部署，也可以直接使用`http://gh.qbot.fun/`。
-  这是作者本人的服务器，如果发现服务不可用，请QQ联系17219193解决。
+  这是作者本人的服务器，如果发现服务不可用，请QQ联系17219193解决。  
   以下步骤皆以此地址作为例子。
 1. Github账户中添加Token:
-  1. 右上角头像 -> Settings -> Developer Settings -> Personal access tokens
-  2. 点击Generate new token
-  3. Notes中随便输入个名字，Select scopes中，确保repo及其子项目全部选中，然后点击Generate Token
-  4. 把产生的token，一个40位的16进制字符串记住。**重要：此token只显示这一次，如果没记住只能删除重建**
+    1. 右上角头像 -> Settings -> Developer Settings -> Personal access tokens
+    2. 点击Generate new token
+    3. Notes中随便输入个名字，Select scopes中，确保repo及其子项目全部选中，然后点击Generate Token
+    4. 把产生的token，一个40位的16进制字符串记住。**重要：此token只显示这一次，如果没记住只能删除重建**
 1. 调用`http://gh.qbot.fun/addToken?user=Github账户名&token=上步获取的Token`添加Token。本项目需要使用此Token调用Github API以刷新release
 1. 为Github仓库创建Webhook:
-  1. 仓库页面，点击Settings -> Webhooks
-  1. 点击Add webhook
-  1. 页面中：Payload URL填入`http://gh.qbot.fun/webhook`，Content type选择application/json；其它项目保持默认，点击Add webhook
-  1. 添加成功后会立即向Webhook地址推送一次，你可以在下面的Recent Deliveries中看到最近的推送日志，点击右面的三点按钮，即可看到推送的请求和应答日志，正常的应答body应该是`ok`或`no commit`
+    1. 仓库页面，点击Settings -> Webhooks
+    1. 点击Add webhook
+    1. 页面中：Payload URL填入`http://gh.qbot.fun/webhook`，Content type选择application/json；其它项目保持默认，点击Add webhook
+    1. 添加成功后会立即向Webhook地址推送一次，你可以在下面的Recent Deliveries中看到最近的推送日志，点击右面的三点按钮，即可看到推送的请求和应答日志，正常的应答body应该是`ok`或`no commit`
 1. 至此，仓库任意资源即可访问！
 1. 任意仓库内资源地址做如下映射即可正常使用：
   `path/to/resource` -> `http://gh.qbot.fun/user/repo/path/to/resource`
   注意：
-  1. 此地址返回的是一个302跳转，将重定向到jsdelivr上对应资源的最新release版的URL上去，即`https://cdn.jsdelivr.net/gh/user/repo@release/path/to/resource`
-  1. 首次访问会创建release，jsdelivr也需回源，会比较慢，以后就会非常快了
+    1. 此地址返回的是一个302跳转，将重定向到jsdelivr上对应资源的最新release版的URL上去，即`https://cdn.jsdelivr.net/gh/user/repo@release/path/to/resource`
+    1. 首次访问会创建release，jsdelivr也需回源，会比较慢，以后就会非常快了
 1. 也可以不用服务提供的跳转机制，而是自行在本地组装资源URL，这样速度更快，推荐用此种方案！
-1. 只要访问`http://gh.qbot.fun/user/repo/`即会返回当前的最新release的tag，客户端可以缓存此tag，并自行拼装最终资源地址，即：
+  只要访问`http://gh.qbot.fun/user/repo/`即会返回当前的最新release的tag  
+  客户端可以缓存此tag，并自行拼装最终资源地址，即：  
   `https://cdn.jsdelivr.net/gh/user/repo@release/path/to/resource`
 
 ## 其它说明
