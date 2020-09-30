@@ -149,3 +149,11 @@ app.get('/*', async (req, res) => {
 app.listen(PORT, function () {
   console.log(`GHDELIVR服务开始监听${PORT}端口`)
 })
+
+process.on('unhandledRejection', ({ message, stack }) => {
+  log(`unhandledRejection: message=${message}, stack=${stack.replace(/[\r\n]+/g, '\\n')}`)
+})
+
+process.on('uncaughtException', ({ message, stack }) => {
+  log(`uncaughtException: message=${message}, stack=${stack.replace(/[\r\n]+/g, '\\n')}`)
+})
