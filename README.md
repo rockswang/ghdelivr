@@ -33,12 +33,12 @@
     1. 添加成功后会立即向Webhook地址推送一次，你可以在下面的Recent Deliveries中看到最近的推送日志；  
       点击右面的三点按钮，即可看到推送的请求和应答日志，正常的应答body应该是`ok`或`no commit`
 1. 至此，仓库任意资源即可访问！  
+  仓库中有任何添加、修改、删除等动作，CDN都会实时刷新！  
   仓库内的任意资源地址做如下映射即可正常使用：  
   `https://github.com/user/repo/path/to/resource` -> `http://gh.qbot.fun/user/repo/path/to/resource`  
   注意：  
     1. 此地址返回的是一个302跳转，将重定向到jsdelivr上对应资源的最新release版的URL上去，即`https://cdn.jsdelivr.net/gh/user/repo@release/path/to/resource`
     1. 首次访问会创建release，jsdelivr也需回源，会比较慢，以后就会非常快了  
-  仓库中有任何添加、修改、删除等动作，CDN都会实时刷新！  
   
 1. 也可以不用服务提供的跳转机制，而是在客户端自行组装资源URL，这样速度更快，推荐用此方案！  
   访问`http://gh.qbot.fun/user/repo/`即会返回当前的最新release的tag  
