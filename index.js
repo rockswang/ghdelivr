@@ -61,10 +61,10 @@ async function getTagName (user, repo, token) {
   return cache.wrap(`${user}/${repo}`, async () => {
     log(`${user}/${repo}: 获取标签 - 缓存未命中`)
     const opt = { json: true, headers: { Authorization: 'token ' + token } }
-    const [r1, r2] = await Promise.all(
+    const [r1, r2] = await Promise.all([
       rp.get(`https://api.github.com/repos/${user}/${repo}/branches/master`, opt),
       rp.get(`https://api.github.com/repos/${user}/${repo}/releases`, opt)
-    )
+    ])
     const tagName = r1.commit.sha.slice(-10)
     log(`${user}/${repo}: 最新commit - ${r1.commit.sha}；release列表 - ${r2.map(r => r.tag_name).join(', ')}`)
     let found = false
