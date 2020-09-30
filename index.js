@@ -8,11 +8,9 @@ const Agent = require('socks5-https-client/lib/Agent')
 const LRU = require('lru-cache')
 
 const rp = request.defaults({
-  headers: {
-    'User-Agent': 'curl'
-  },
   // proxy: 'http://localhost:1080',
   // rejectUnauthorized: false,
+  headers: { 'User-Agent': 'curl' }, // 使用curl UA，否则github api出错
   timeout: 20000,
   gzip: true, // 启用压缩
   strictSSL: true,
